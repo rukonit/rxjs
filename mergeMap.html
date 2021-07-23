@@ -1,0 +1,21 @@
+<script src="https://unpkg.com/@reactivex/rxjs@5.3.0/dist/global/Rx.js"></script>
+
+<input type="text" id="input1">
+<input type="text" id="input2">
+
+<p>Combined value: <span></span></p>
+
+<script type="text/javascript> 
+var input1 = document.querySelector("#input1");
+var input2 = document.querySelector("#input2");
+
+var span = document.querySelector("span");
+
+var obs1 = Rx.Observable.fromEvent(input1, 'click').mergeMap(
+event1 => {return Rx.Observable.fromEvent(input2, 'input').map(
+event2 => event1.target.value + ' ' + event2.target.value
+)}
+).subscribe((data) =>
+span.textContent = data
+)
+</script>
